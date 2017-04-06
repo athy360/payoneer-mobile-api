@@ -1,0 +1,343 @@
+swagger: '2.0'
+info:
+  title: Payoneer Mobile API
+  description: Swagger specification for https://mobileapi.payoneer.com
+  version: '1.0.0'
+schemes:
+  - https
+host: mobileapi.payoneer.com
+consumes:
+  - application/json
+  - application/xml
+produces:
+  - application/json
+  - application/xml
+paths:
+  '/User/Login':
+    post:
+      tags:
+        - User
+      summary: User login
+      parameters:
+        - name: requestBody
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/LoginRequest'
+      responses:
+        200:
+          description: User login response
+          schema:
+            $ref: '#/definitions/LoginResponse'
+      externalDocs:
+        url: https://mobileapi.payoneer.com/Help/Api/POST-User-Login
+  '/User/OrnLink':
+    post:
+      tags:
+        - User
+      summary: User ORN link
+      parameters:
+        - name: requestBody
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/OrnRequest'
+      responses:
+        200:
+          description: User ORN link response
+          schema:
+            $ref: '#/definitions/OrnResponse'
+      externalDocs:
+        url: https://mobileapi.payoneer.com/Help/Api/POST-User-OrnLink
+  '/User/GetUserSettings':
+    post:
+      tags:
+        - User
+      summary: Get User Settings
+      parameters:
+        - name: requestBody
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/GetUserSettingsRequest'
+      responses:
+        200:
+          description: Get User Settings response
+          schema:
+            $ref: '#/definitions/GetUserSettingsResponse'
+      externalDocs:
+        url: https://mobileapi.payoneer.com/Help/Api/POST-User-GetUserSettings
+  '/User/SaveUserSettings':
+    post:
+      tags:
+        - User
+      summary: Save User Settings
+      parameters:
+        - name: requestBody
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/SaveUserSettingsRequest'
+      responses:
+        200:
+          description: Save User Settings response
+          schema:
+            $ref: '#/definitions/GetUserSettingsResponse'
+      externalDocs:
+        url: https://mobileapi.payoneer.com/Help/Api/POST-User-SaveUserSettings
+  '/User/Logout':
+    post:
+      tags:
+        - User
+      summary: User Logout
+      parameters:
+        - name: requestBody
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/LogoutRequest'
+      responses:
+        200:
+          description: User Logout response
+          schema:
+            $ref: '#/definitions/LogoutResponse'
+      externalDocs:
+        url: https://mobileapi.payoneer.com/Help/Api/POST-User-Logout
+  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Account-Account
+  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Account-PaymentMethodDetails
+  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Account-BillingAddress
+  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Account-CurrenciesGet
+  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Authentication-ChallengeRefuseSms
+  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Authentication-ChallengeCancel
+  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Authentication-ChallengeSms
+  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Authentication-ChallengeGet
+  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Authentication-ChallengeAuthenticate
+  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Transaction-Transactions
+  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Transaction-PreAuthTransactions
+  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Transaction-TransactionDetails
+  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Balance-Balance
+  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Payment-Payments
+  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Payment-PaymentDetails
+  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Notification-RegisterPushToken
+  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Notification-OpenPushNotification
+  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Withdrawal-Init
+  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Withdrawal-Validate
+  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Withdrawal-CheckSecurityAnswers
+  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-App-AppStart
+  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-App-SignDocuments
+  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-App-GetSignDocuments
+  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-App-Resources
+  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-App-ResourceGet
+definitions:
+  LoginRequest:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=LoginRequest
+    type: object
+    required:
+      - Password
+      - Username
+      - MobileAppId
+      - AppVersion
+      - DeviceId
+    properties:
+      Password:
+        type: string
+      Username:
+        type: string
+      MobileAppId:
+        type: integer
+        default: 2
+        description: 1 means iOS, 2 means Android. Default is Android
+        enum:
+          - 1
+          - 2
+      AppVersion:
+        type: string
+        default: 3.33.1
+      ExtendedLoginData:
+        type: string
+        description: (Assumption) Captcha code
+      LanguageCode:
+        type: integer
+        default: 1
+        description: 1 means ENG. Default is ENG.
+      UTCTimeZone:
+        type: integer
+      Currency:
+        type: string
+      Timestamp:
+        type: string
+        format: date
+      MobilePlatformType:
+        type: integer
+      DeviceProperties:
+        $ref: '#/definitions/DeviceProperties'
+      DeviceId:
+        type: string
+        pattern: '[0-9a-f]{32}'
+      MAC:
+        type: string
+  LoginResponse:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=LoginResponse
+    type: object
+    properties:
+      FirstName:
+        type: string
+      LastName:
+        type: string
+      RAFLink:
+        type: string
+      RAFLinkMenu:
+        type: string
+      Email:
+        type: string
+      LocalCurrency:
+        type: string
+      DisplayTC:
+        type: boolean
+      Permissions:
+        type: array
+        items:
+          $ref: '#/definitions/AccountPermission'
+      ORNLink:
+        type: string
+      ResponseCode:
+        type: integer
+      Description:
+        type: string
+      RiskChallenge:
+        $ref: '#/definitions/ChallengeResponse'
+      MobileSessionToken:
+        type: string
+  OrnRequest:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=OrnRequest
+    type: object
+    required:
+      - MobileAppId
+      - DeviceId
+    properties:
+      LanguageCode:
+        type: integer
+        default: 1
+        description: 1 means ENG. Default is ENG.
+      MobileAppId:
+        type: integer
+        default: 2
+        description: 1 means iOS, 2 means Android. Default is Android
+        enum:
+          - 1
+          - 2
+      DeviceId:
+        type: string
+        pattern: '[0-9a-f]{32}'
+      MAC:
+        type: string
+  OrnResponse:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=OrnResponse
+    type: object
+    properties:
+      ResponseCode:
+        type: integer
+      ORNLink:
+        type: string
+  GetUserSettingsRequest:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=GetUserSettingsRequest
+    type: object
+    required:
+      - DeviceId
+    properties:
+      DeviceId:
+        type: string
+        pattern: '[0-9a-f]{32}'
+      MAC:
+        type: string
+  GetUserSettingsResponse:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=GetUserSettingsResponse
+    type: object
+    properties:
+      ResponseCode:
+        type: integer
+      Settings:
+        $ref: '#/definitions/UserSettings'
+  SaveUserSettingsRequest:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=SaveUserSettingsRequest
+    type: object
+    required:
+      - DeviceId
+      - Settings
+    properties:
+      DeviceId:
+        type: string
+        pattern: '[0-9a-f]{32}'
+      MAC:
+        type: string
+      Settings:
+        $ref: '#/definitions/UserSettings'
+  LogoutRequest:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=LogoutRequest
+    type: object
+    required:
+      - DeviceId
+    properties:
+      Type:
+        type: integer
+      DeviceId:
+        type: string
+        pattern: '[0-9a-f]{32}'
+      MAC:
+        type: string
+  LogoutResponse:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=LogoutResponse
+    type: object
+    properties:
+      ResponseCode:
+        type: integer
+  DeviceProperties:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=DeviceProperties
+    type: object
+    properties:
+      DevicePrint:
+        type: string
+      DeviceToken:
+        type: string
+      DeviceTokenFSO:
+        type: string
+      HttpAccept:
+        type: string
+      HttpAcceptEncoding:
+        type: string
+      HttpAcceptLanguage:
+        type: string
+      HttpReferer:
+        type: string
+  AccountPermission:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=AccountPermission
+    type: object
+    properties:
+      PerId:
+        type: integer
+      PerVal:
+        type: boolean
+  ChallengeResponse:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=ChallengeResponse
+    type: object
+    properties:
+      ChallengeMethod:
+        type: integer
+      IsLastAttempt:
+        type: boolean
+  UserSettings:
+    type: object
+    additionalProperties:
+      type: string
