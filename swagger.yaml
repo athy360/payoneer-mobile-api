@@ -242,11 +242,96 @@ paths:
   #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Withdrawal-Init
   #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Withdrawal-Validate
   #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Withdrawal-CheckSecurityAnswers
-  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-App-AppStart
-  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-App-SignDocuments
-  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-App-GetSignDocuments
-  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-App-Resources
-  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-App-ResourceGet
+  '/App/AppStart':
+    post:
+      tags:
+        - App
+      summary: App Start
+      parameters:
+        - name: requestBody
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/AppStartRequest'
+      responses:
+        200:
+          description: Transaction Details response
+          schema:
+            $ref: '#/definitions/AppStartResponse'
+      externalDocs:
+        url: https://mobileapi.payoneer.com/Help/Api/POST-App-AppStart
+  '/App/SignDocuments':
+    post:
+      tags:
+        - App
+      summary: Sign Documents
+      parameters:
+        - name: requestBody
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/SignDocumentsRequest'
+      responses:
+        200:
+          description: Sign Documents response
+          schema:
+            $ref: '#/definitions/SignDocumentsResponse'
+      externalDocs:
+        url: https://mobileapi.payoneer.com/Help/Api/POST-App-SignDocuments
+  '/App/GetSignDocuments':
+    post:
+      tags:
+        - App
+      summary: Get Sign Documents
+      parameters:
+        - name: requestBody
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/GetSignDocumentsRequest'
+      responses:
+        200:
+          description: Get Sign Documents response
+          schema:
+            $ref: '#/definitions/GetSignDocumentsResponse'
+      externalDocs:
+        url: https://mobileapi.payoneer.com/Help/Api/POST-App-GetSignDocuments
+  '/App/Resources':
+    post:
+      tags:
+        - App
+      summary: Resources
+      parameters:
+        - name: requestBody
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/ResourcesRequest'
+      responses:
+        200:
+          description: Resources response
+          schema:
+            $ref: '#/definitions/ResourcesResponse'
+      externalDocs:
+        url: https://mobileapi.payoneer.com/Help/Api/POST-App-Resources
+  '/App/ResourceGet':
+    post:
+      tags:
+        - App
+      summary: Get Resource
+      parameters:
+        - name: requestBody
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/ResourceGetRequest'
+      responses:
+        200:
+          description: Get Resource response
+          schema:
+            $ref: '#/definitions/ResourceGetResponse'
+      externalDocs:
+        url: https://mobileapi.payoneer.com/Help/Api/POST-App-ResourceGet
 definitions:
   LoginRequest:
     externalDocs:
@@ -265,8 +350,7 @@ definitions:
         type: string
       MobileAppId:
         type: integer
-        default: 2
-        description: 1 means iOS, 2 means Android. Default is Android
+        description: 1 means iOS, 2 means Android.
         enum:
           - 1
           - 2
@@ -278,8 +362,7 @@ definitions:
         description: (Assumption) Captcha code
       LanguageCode:
         type: integer
-        default: 1
-        description: 1 means ENG. Default is ENG.
+        description: 1 means ENG.
       UTCTimeZone:
         type: integer
       Currency:
@@ -339,12 +422,10 @@ definitions:
     properties:
       LanguageCode:
         type: integer
-        default: 1
-        description: 1 means ENG. Default is ENG.
+        description: 1 means ENG.
       MobileAppId:
         type: integer
-        default: 2
-        description: 1 means iOS, 2 means Android. Default is Android
+        description: 1 means iOS, 2 means Android.
         enum:
           - 1
           - 2
@@ -490,8 +571,7 @@ definitions:
         type: integer
       LanguageCode:
         type: integer
-        default: 1
-        description: 1 means ENG. Default is ENG.
+        description: 1 means ENG.
       DeviceId:
         type: string
         pattern: '[0-9a-f]{32}'
@@ -517,8 +597,7 @@ definitions:
         type: string
       LanguageCode:
         type: integer
-        default: 1
-        description: 1 means ENG. Default is ENG.
+        description: 1 means ENG.
       DeviceId:
         type: string
         pattern: '[0-9a-f]{32}'
@@ -556,8 +635,7 @@ definitions:
         format: date
       LanguageCode:
         type: integer
-        default: 1
-        description: 1 means ENG. Default is ENG.
+        description: 1 means ENG.
       DeviceId:
         type: string
         pattern: '[0-9a-f]{32}'
@@ -594,8 +672,7 @@ definitions:
         format: date
       LanguageCode:
         type: integer
-        default: 1
-        description: 1 means ENG. Default is ENG.
+        description: 1 means ENG.
       DeviceId:
         type: string
         pattern: '[0-9a-f]{32}'
@@ -627,8 +704,7 @@ definitions:
         type: string
       LanguageCode:
         type: integer
-        default: 1
-        description: 1 means ENG. Default is ENG.
+        description: 1 means ENG.
       DeviceId:
         type: string
         pattern: '[0-9a-f]{32}'
@@ -643,6 +719,194 @@ definitions:
         type: integer
       Details:
         $ref: '#/definitions/TransactionDetails'
+  #TODO: Other stuff
+  AppStartRequest:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=AppStartRequest
+    type: object
+    required:
+      - AppVersion
+      - MobileAppId
+      - IsFirstAppStart
+      - DeviceId
+    properties:
+      MobileAppId:
+        type: integer
+        description: 1 means iOS, 2 means Android.
+        enum:
+          - 1
+          - 2
+      AppVersion:
+        type: string
+        default: 3.33.1
+      LanguageCode:
+        type: integer
+        description: 1 means ENG.
+      MobilePlatformType:
+        type: integer
+      PartnerId:
+        type: integer
+      Timestamp:
+        type: string
+        format: date
+      IsFirstAppStart:
+        type: boolean
+      DeviceId:
+        type: string
+        pattern: '[0-9a-f]{32}'
+      MAC:
+        type: string
+  AppStartResponse:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=AppStartResponse
+    type: object
+    properties:
+      ResponseCode:
+        type: integer
+      Description:
+        type: string
+      Resources:
+        $ref: '#/definitions/Resources'
+      PushAPIKeys:
+        $ref: '#/definitions/PushCredentials'
+      DisplayTC:
+        type: boolean
+      Languages:
+        type: array
+        items:
+          $ref: '#/definitions/SupportedLanguageResponse'
+      Currencies:
+        type: array
+        items:
+          type: string
+      DeviceToken:
+        type: string
+  SignDocumentsRequest:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=SignDocumentsRequest
+    type: object
+    required:
+      - IsFirstAppStart
+      - DeviceId
+    properties:
+      IsFirstAppStart:
+        type: boolean
+      DeviceId:
+        type: string
+        pattern: '[0-9a-f]{32}'
+      MAC:
+        type: string
+  SignDocumentsResponse:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=SignDocumentsResponse
+    type: object
+    properties:
+      ResponseCode:
+        type: integer
+  GetSignDocumentsRequest:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=GetSignDocumentsRequest
+    type: object
+    required:
+      - IsFirstAppStart
+      - DeviceId
+    properties:
+      LanguageCode:
+        type: integer
+        description: 1 means ENG.
+      IsFirstAppStart:
+        type: boolean
+      DeviceId:
+        type: string
+        pattern: '[0-9a-f]{32}'
+      MAC:
+        type: string
+  GetSignDocumentsResponse:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=GetSignDocumentsResponse
+    type: object
+    properties:
+      ResponseCode:
+        type: integer
+      Documents:
+        type: array
+        items:
+          $ref: '#/definitions/SigningDocument'
+  ResourcesRequest:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=ResourcesRequest
+    type: object
+    required:
+      - DeviceId
+    properties:
+      MobileAppId:
+        type: integer
+        description: 1 means iOS, 2 means Android.
+        enum:
+          - 1
+          - 2
+      Timestamp:
+        type: string
+        format: date
+      LanguageCode:
+        type: integer
+        description: 1 means ENG.
+      ISOCode:
+        type: string
+      PartnerId:
+        type: integer
+      DeviceId:
+        type: string
+        pattern: '[0-9a-f]{32}'
+      MAC:
+        type: string
+  ResourcesResponse:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=ResourcesResponse
+    type: object
+    properties:
+      ResponseCode:
+        type: integer
+      Resources:
+        $ref: '#/definitions/Resources'
+      LanguageCode:
+        type: integer
+      ISOCode:
+        type: string
+      IsRTL:
+        type: boolean
+  ResourceGetRequest:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=ResourceGetRequest
+    type: object
+    required:
+      - DeviceId
+    properties:
+      LanguageCode:
+        type: integer
+        description: 1 means ENG.
+      MobileAppId:
+        type: integer
+        description: 1 means iOS, 2 means Android.
+        enum:
+          - 1
+          - 2
+      ResourceName:
+        type: string
+      DeviceId:
+        type: string
+        pattern: '[0-9a-f]{32}'
+      MAC:
+        type: string
+  ResourceGetResponse:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=ResourceGetResponse
+    type: object
+    properties:
+      ResponseCode:
+        type: integer
+      ResourceValue:
+        type: string
   #TODO: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=
   #TODO: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=
   #TODO: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=
@@ -652,6 +916,60 @@ definitions:
   #TODO: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=
   #TODO: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=
   #TODO: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=
+  SigningDocument:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=Resources
+    type: object
+    properties:
+      DocumentURL:
+        type: string
+      DocumentTitle:
+        type: string
+  Resources:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=Resources
+    type: object
+    properties:
+      List:
+        type: array
+        items:
+          $ref: '#/definitions/MobileResource'
+      TimeStamp:
+        type: string
+  MobileResource:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=MobileResource
+    type: object
+    properties:
+      Name:
+        type: string
+      ResourceValue:
+        type: string
+      Type:
+        type: integer
+  PushCredentials:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=PushCredentials
+    type: object
+    properties:
+      AppKey:
+        type: string
+      AppSecret:
+        type: string
+  SupportedLanguageResponse:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=SupportedLanguageResponse
+    type: object
+    properties:
+      LanguageCode:
+        type: integer
+        description: 1 means ENG.
+      DisplayName:
+        type: string
+      IsRTL:
+        type: boolean
+      ISOCode:
+        type: string
   TransactionDetails:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=TransactionDetails
