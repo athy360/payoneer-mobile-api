@@ -234,7 +234,24 @@ paths:
             $ref: '#/definitions/TransactionDetailsResponse'
       externalDocs:
         url: https://mobileapi.payoneer.com/Help/Api/POST-Transaction-TransactionDetails
-  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Balance-Balance
+  '/Balance/Balance':
+    post:
+      tags:
+        - Balance
+      summary: Balance
+      parameters:
+        - name: requestBody
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/BalanceRequest'
+      responses:
+        200:
+          description: Balance response
+          schema:
+            $ref: '#/definitions/BalanceResponse'
+      externalDocs:
+        url: https://mobileapi.payoneer.com/Help/Api/POST-Balance-Balance
   #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Payment-Payments
   #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Payment-PaymentDetails
   #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Notification-RegisterPushToken
@@ -719,6 +736,46 @@ definitions:
         type: integer
       Details:
         $ref: '#/definitions/TransactionDetails'
+  BalanceRequest:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=BalanceRequest
+    type: object
+    required:
+      - MobileAccountId
+      - DeviceId
+    properties:
+      MobileAccountId:
+        type: integer
+      Currency:
+        type: string
+      DeviceId:
+        type: string
+        pattern: '[0-9a-f]{32}'
+      MAC:
+        type: string
+  BalanceResponse:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=BalanceResponse
+    type: object
+    properties:
+      ResponseDescription:
+        type: string
+      ResponseCode:
+        type: integer
+      AccountBalance:
+        type: string
+      AccountBalanceInCardCurrency:
+        type: string
+      CardBalance:
+        type: string
+      CardBalanceInCardCurrency:
+        type: string
+      CardCurrency:
+        type: string
+      LastProcessed:
+        type: string
+      RequestedCurrency:
+        type: string
   #TODO: Other stuff
   AppStartRequest:
     externalDocs:
