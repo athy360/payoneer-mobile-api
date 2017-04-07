@@ -19,7 +19,7 @@ paths:
         - User
       summary: User login
       parameters:
-        - name: requestBody
+        - name: request
           in: body
           required: true
           schema:
@@ -37,7 +37,7 @@ paths:
         - User
       summary: User ORN link
       parameters:
-        - name: requestBody
+        - name: request
           in: body
           required: true
           schema:
@@ -55,7 +55,7 @@ paths:
         - User
       summary: Get User Settings
       parameters:
-        - name: requestBody
+        - name: request
           in: body
           required: true
           schema:
@@ -73,7 +73,7 @@ paths:
         - User
       summary: Save User Settings
       parameters:
-        - name: requestBody
+        - name: request
           in: body
           required: true
           schema:
@@ -91,7 +91,7 @@ paths:
         - User
       summary: User Logout
       parameters:
-        - name: requestBody
+        - name: request
           in: body
           required: true
           schema:
@@ -109,7 +109,7 @@ paths:
         - Account
       summary: Account Details
       parameters:
-        - name: requestBody
+        - name: request
           in: body
           required: true
           schema:
@@ -127,7 +127,7 @@ paths:
         - Account
       summary: Payment Method Details
       parameters:
-        - name: requestBody
+        - name: request
           in: body
           required: true
           schema:
@@ -145,7 +145,7 @@ paths:
         - Account
       summary: Billing Address
       parameters:
-        - name: requestBody
+        - name: request
           in: body
           required: true
           schema:
@@ -163,7 +163,7 @@ paths:
         - Account
       summary: Currencies
       parameters:
-        - name: requestBody
+        - name: request
           in: body
           required: true
           schema:
@@ -186,7 +186,7 @@ paths:
         - Transaction
       summary: Transactions
       parameters:
-        - name: requestBody
+        - name: request
           in: body
           required: true
           schema:
@@ -204,7 +204,7 @@ paths:
         - Transaction
       summary: Pre-Authorization Transactions
       parameters:
-        - name: requestBody
+        - name: request
           in: body
           required: true
           schema:
@@ -222,7 +222,7 @@ paths:
         - Transaction
       summary: Transaction Details
       parameters:
-        - name: requestBody
+        - name: request
           in: body
           required: true
           schema:
@@ -240,7 +240,7 @@ paths:
         - Balance
       summary: Balance
       parameters:
-        - name: requestBody
+        - name: request
           in: body
           required: true
           schema:
@@ -265,7 +265,7 @@ paths:
         - App
       summary: App Start
       parameters:
-        - name: requestBody
+        - name: request
           in: body
           required: true
           schema:
@@ -283,7 +283,7 @@ paths:
         - App
       summary: Sign Documents
       parameters:
-        - name: requestBody
+        - name: request
           in: body
           required: true
           schema:
@@ -301,7 +301,7 @@ paths:
         - App
       summary: Get Sign Documents
       parameters:
-        - name: requestBody
+        - name: request
           in: body
           required: true
           schema:
@@ -319,7 +319,7 @@ paths:
         - App
       summary: Resources
       parameters:
-        - name: requestBody
+        - name: request
           in: body
           required: true
           schema:
@@ -337,7 +337,7 @@ paths:
         - App
       summary: Get Resource
       parameters:
-        - name: requestBody
+        - name: request
           in: body
           required: true
           schema:
