@@ -180,9 +180,60 @@ paths:
   #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Authentication-ChallengeSms
   #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Authentication-ChallengeGet
   #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Authentication-ChallengeAuthenticate
-  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Transaction-Transactions
-  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Transaction-PreAuthTransactions
-  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Transaction-TransactionDetails
+  '/Transaction/Transactions':
+    post:
+      tags:
+        - Transaction
+      summary: Transactions
+      parameters:
+        - name: requestBody
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/TransactionsListRequest'
+      responses:
+        200:
+          description: Transactions response
+          schema:
+            $ref: '#/definitions/TransactionsListResponse'
+      externalDocs:
+        url: https://mobileapi.payoneer.com/Help/Api/POST-Transaction-Transactions
+  '/Transaction/PreAuthTransactions':
+    post:
+      tags:
+        - Transaction
+      summary: Pre-Authorization Transactions
+      parameters:
+        - name: requestBody
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/PreAuthTransactionsRequest'
+      responses:
+        200:
+          description: Pre-Authorization Transactions response
+          schema:
+            $ref: '#/definitions/PreAuthTransactionsResponse'
+      externalDocs:
+        url: https://mobileapi.payoneer.com/Help/Api/POST-Transaction-PreAuthTransactions
+  '/Transaction/TransactionDetails':
+    post:
+      tags:
+        - Transaction
+      summary: Transaction Details
+      parameters:
+        - name: requestBody
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/TransactionDetailsRequest'
+      responses:
+        200:
+          description: Transaction Details response
+          schema:
+            $ref: '#/definitions/TransactionDetailsResponse'
+      externalDocs:
+        url: https://mobileapi.payoneer.com/Help/Api/POST-Transaction-TransactionDetails
   #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Balance-Balance
   #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Payment-Payments
   #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Payment-PaymentDetails
@@ -484,7 +535,114 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/Currency'
-  #TODO: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=PaymentMethodResponse
+  #TODO: Stuff
+  TransactionsListRequest:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=TransactionsListRequest
+    type: object
+    required:
+      - MobileAccountId
+      - FromDate
+      - ToDate
+      - DeviceId
+    properties:
+      MobileAccountId:
+        type: integer
+      FromDate:
+        type: string
+        format: date
+      ToDate:
+        type: string
+        format: date
+      LanguageCode:
+        type: integer
+        default: 1
+        description: 1 means ENG. Default is ENG.
+      DeviceId:
+        type: string
+        pattern: '[0-9a-f]{32}'
+      MAC:
+        type: string
+  TransactionsListResponse:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=TransactionsListResponse
+    type: object
+    properties:
+      ResponseCode:
+        type: integer
+      TransactionHeadersList:
+        type: array
+        items:
+          $ref: '#/definitions/TransactionHeaderResponse'
+  PreAuthTransactionsRequest:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=PreAuthTransactionsRequest
+    type: object
+    required:
+      - MobileAccountId
+      - FromDate
+      - ToDate
+      - DeviceId
+    properties:
+      MobileAccountId:
+        type: integer
+      FromDate:
+        type: string
+        format: date
+      ToDate:
+        type: string
+        format: date
+      LanguageCode:
+        type: integer
+        default: 1
+        description: 1 means ENG. Default is ENG.
+      DeviceId:
+        type: string
+        pattern: '[0-9a-f]{32}'
+      MAC:
+        type: string
+  PreAuthTransactionsResponse:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=PreAuthTransactionsResponse
+    type: object
+    properties:
+      ResponseCode:
+        type: integer
+      PreAuthTransactionHeadersList:
+        type: array
+        items:
+          $ref: '#/definitions/TransactionHeaderResponse'
+  TransactionDetailsRequest:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=TransactionDetailsRequest
+    type: object
+    required:
+      - MobileAccountId
+      - TransactionId
+      - DeviceId
+    properties:
+      MobileAccountId:
+        type: integer
+      TransactionId:
+        type: string
+      LanguageCode:
+        type: integer
+        default: 1
+        description: 1 means ENG. Default is ENG.
+      DeviceId:
+        type: string
+        pattern: '[0-9a-f]{32}'
+      MAC:
+        type: string
+  TransactionDetailsResponse:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=TransactionDetailsResponse
+    type: object
+    properties:
+      ResponseCode:
+        type: integer
+      Details:
+        $ref: '#/definitions/TransactionDetails'
   #TODO: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=
   #TODO: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=
   #TODO: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=
@@ -493,6 +651,33 @@ definitions:
   #TODO: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=
   #TODO: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=
   #TODO: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=
+  #TODO: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=
+  TransactionDetails:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=TransactionDetails
+    type: object
+    properties:
+      TransactionNumber:
+        $ref: '#/definitions/LabelValuePair'
+      TransactionDate:
+        $ref: '#/definitions/LabelValuePair'
+      AmountForeignCurrency:
+        $ref: '#/definitions/LabelValuePair'
+      TransactionAmount:
+        $ref: '#/definitions/LabelValuePair'
+      ExtraDetails:
+        type: array
+        items:
+          $ref: '#/definitions/LabelValuePair'
+  LabelValuePair:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=LabelValuePair
+    type: object
+    properties:
+      Label:
+        type: string
+      Value:
+        type: string
   PaymentMethodResponse:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=PaymentMethodResponse
