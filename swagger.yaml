@@ -103,10 +103,78 @@ paths:
             $ref: '#/definitions/LogoutResponse'
       externalDocs:
         url: https://mobileapi.payoneer.com/Help/Api/POST-User-Logout
-  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Account-Account
-  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Account-PaymentMethodDetails
-  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Account-BillingAddress
-  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Account-CurrenciesGet
+  '/Account/Account':
+    post:
+      tags:
+        - Account
+      summary: Account Details
+      parameters:
+        - name: requestBody
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/AccountRequest'
+      responses:
+        200:
+          description: Account Details response
+          schema:
+            $ref: '#/definitions/AccountResponse'
+      externalDocs:
+        url: https://mobileapi.payoneer.com/Help/Api/POST-Account-Account
+  '/Account/PaymentMethodDetails':
+    post:
+      tags:
+        - Account
+      summary: Payment Method Details
+      parameters:
+        - name: requestBody
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/PaymentMethodDetailsRequest'
+      responses:
+        200:
+          description: Payment Method Details response
+          schema:
+            $ref: '#/definitions/PaymentMethodDetailsResponse'
+      externalDocs:
+        url: https://mobileapi.payoneer.com/Help/Api/POST-Account-PaymentMethodDetails
+  '/Account/BillingAddress':
+    post:
+      tags:
+        - Account
+      summary: Billing Address
+      parameters:
+        - name: requestBody
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/BillingAddressRequest'
+      responses:
+        200:
+          description: Billing Address response
+          schema:
+            $ref: '#/definitions/BillingAddressResponse'
+      externalDocs:
+        url: https://mobileapi.payoneer.com/Help/Api/POST-Account-BillingAddress
+  '/Account/CurrenciesGet':
+    post:
+      tags:
+        - Account
+      summary: Currencies
+      parameters:
+        - name: requestBody
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CurrenciesGetRequest'
+      responses:
+        200:
+          description: Currencies response
+          schema:
+            $ref: '#/definitions/CurrenciesGetResponse'
+      externalDocs:
+        url: https://mobileapi.payoneer.com/Help/Api/POST-Account-CurrenciesGet
   #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Authentication-ChallengeRefuseSms
   #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Authentication-ChallengeCancel
   #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Authentication-ChallengeSms
@@ -300,6 +368,237 @@ definitions:
     properties:
       ResponseCode:
         type: integer
+  AccountRequest:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=AccountRequest
+    type: object
+    required:
+      - DeviceId
+    properties:
+      DeviceId:
+        type: string
+        pattern: '[0-9a-f]{32}'
+      MAC:
+        type: string
+  AccountResponse:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=AccountResponse
+    type: object
+    properties:
+      ResponseCode:
+        type: integer
+      PaymentMethods:
+        type: array
+        items:
+          $ref: '#/definitions/PaymentMethodResponse'
+  PaymentMethodDetailsRequest:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=PaymentMethodDetailsRequest
+    type: object
+    required:
+      - MobileAccountId
+      - DeviceId
+    properties:
+      MobileAccountId:
+        type: integer
+      Currency:
+        type: string
+      LatestBalance:
+        type: boolean
+      DeviceId:
+        type: string
+        pattern: '[0-9a-f]{32}'
+      MAC:
+        type: string
+  PaymentMethodDetailsResponse:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=PaymentMethodDetailsResponse
+    type: object
+    properties:
+      ResponseCode:
+        type: integer
+      Balance:
+        $ref: '#/definitions/PaymentMethodBalance'
+      RecentPayments:
+        type: array
+        items:
+          $ref: '#/definitions/PaymentHeaderResponse'
+      LastTransactions:
+        type: array
+        items:
+          $ref: '#/definitions/TransactionHeaderResponse'
+  BillingAddressRequest:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=BillingAddressRequest
+    type: object
+    required:
+      - MobileAccountId
+      - DeviceId
+    properties:
+      MobileAccountId:
+        type: integer
+      LanguageCode:
+        type: integer
+        default: 1
+        description: 1 means ENG. Default is ENG.
+      DeviceId:
+        type: string
+        pattern: '[0-9a-f]{32}'
+      MAC:
+        type: string
+  BillingAddressResponse:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=BillingAddressResponse
+    type: object
+    properties:
+      ResponseCode:
+        type: integer
+      BillingAddress:
+        $ref: '#/definitions/BillingAddress'
+  CurrenciesGetRequest:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=CurrenciesGetRequest
+    type: object
+    required:
+      - DeviceId
+    properties:
+      Currency:
+        type: string
+      LanguageCode:
+        type: integer
+        default: 1
+        description: 1 means ENG. Default is ENG.
+      DeviceId:
+        type: string
+        pattern: '[0-9a-f]{32}'
+      MAC:
+        type: string
+  CurrenciesGetResponse:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=CurrenciesGetResponse
+    type: object
+    properties:
+      ResponseCode:
+        type: integer
+      Currencies:
+        type: array
+        items:
+          $ref: '#/definitions/Currency'
+  #TODO: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=PaymentMethodResponse
+  #TODO: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=
+  #TODO: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=
+  #TODO: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=
+  #TODO: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=
+  #TODO: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=
+  #TODO: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=
+  #TODO: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=
+  #TODO: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=
+  PaymentMethodResponse:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=PaymentMethodResponse
+    type: object
+    properties:
+      MobileAccountId:
+        type: integer
+      Type:
+        type: integer
+      _PrimaryField:
+        type: string
+      PrimaryField:
+        type: string
+      SecondaryField:
+        type: string
+      DisplayNameResource:
+        type: string
+      UseSecondaryField:
+        type: boolean
+      Status:
+        type: integer
+      Currency:
+        type: string
+      Balance:
+        $ref: '#/definitions/PaymentMethodBalance'
+      StatusCategory:
+        type: integer
+      AllowTransactions:
+        type: boolean
+  TransactionHeaderResponse:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=TransactionHeaderResponse
+    type: object
+    properties:
+      TransactionId:
+        type: string
+      Date:
+        type: string
+      Description:
+        type: string
+      Amount:
+        type: string
+      TransactionStatusCategory:
+        type: integer
+  PaymentHeaderResponse:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=PaymentHeaderResponse
+    type: object
+    properties:
+      PaymentId:
+        type: string
+      Date:
+        type: string
+      Loader:
+        type: string
+      Amount:
+        type: string
+      PaymentStatusCategory:
+        type: integer
+  Currency:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=Currency
+    type: object
+    properties:
+      Code:
+        type: string
+      Display:
+        type: string
+      Location:
+        type: integer
+  BillingAddress:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=BillingAddress
+    type: object
+    properties:
+      Address1:
+        type: string
+      Address2:
+        type: string
+      City:
+        type: string
+      Zip:
+        type: string
+      State:
+        type: string
+      Country:
+        type: string
+      Phone:
+        type: string
+  PaymentMethodBalance:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=PaymentMethodBalance
+    type: object
+    properties:
+      QuoteResponseCode:
+        type: integer
+      QuoteResponseDescription:
+        type: string
+      Currency:
+        type: string
+      CardBalance:
+        type: string
+      AccountBalance:
+        type: string
+      LastProcessed:
+        type: string
   DeviceProperties:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=DeviceProperties
