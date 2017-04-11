@@ -2,7 +2,7 @@ swagger: '2.0'
 info:
   title: Payoneer Mobile API
   description: Swagger specification for https://mobileapi.payoneer.com
-  version: '0.9.0'
+  version: '0.9.2'
 schemes:
   - https
 host: mobileapi.payoneer.com
@@ -17,7 +17,7 @@ paths:
     post:
       tags:
         - User
-      summary: User login
+      summary: User Login
       parameters:
         - name: request
           in: body
@@ -453,6 +453,7 @@ definitions:
     properties:
       ResponseCode:
         type: integer
+        description: 1 - Success; 34 - (Assumption) Terms&Conditions not agreed;
   LoginRequest:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=LoginRequest
@@ -575,9 +576,12 @@ definitions:
     allOf:
       - $ref: '#/definitions/BaseRequest'
       - type: object
+        required:
+          - Type
         properties:
           Type:
             type: integer
+            default: 0
   LogoutResponse:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=LogoutResponse
@@ -1109,8 +1113,9 @@ definitions:
         type: integer
       Type:
         type: integer
-      _PrimaryField:
-        type: string
+      #NOTE: Seems explicit, and breaks Python generator at least
+      #_PrimaryField:
+      #  type: string
       PrimaryField:
         type: string
       SecondaryField:
