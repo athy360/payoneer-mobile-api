@@ -175,7 +175,24 @@ paths:
             $ref: '#/definitions/CurrenciesGetResponse'
       externalDocs:
         url: https://mobileapi.payoneer.com/Help/Api/POST-Account-CurrenciesGet
-  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Authentication-ChallengeRefuseSms
+  '/Authentication/ChallengeRefuseSms':
+    post:
+      tags:
+        - Authentication
+      summary: ChallengeRefuseSms
+      parameters:
+        - name: request
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/BaseRequest'
+      responses:
+        200:
+          description: ChallengeRefuseSms response
+          schema:
+            $ref: '#/definitions/BaseResponse'
+      externalDocs:
+        url: https://mobileapi.payoneer.com/Help/Api/POST-Authentication-ChallengeRefuseSms
   #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Authentication-ChallengeCancel
   #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Authentication-ChallengeSms
   #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Authentication-ChallengeGet
@@ -350,6 +367,22 @@ paths:
       externalDocs:
         url: https://mobileapi.payoneer.com/Help/Api/POST-App-ResourceGet
 definitions:
+  BaseRequest:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=BaseRequest
+    type: object
+    properties:
+      DeviceId:
+        $ref: '#/definitions/DeviceId'
+      MAC:
+        type: string
+  BaseResponse:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=BaseResponse
+    type: object
+    properties:
+      ResponseCode:
+        type: integer
   LoginRequest:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=LoginRequest
@@ -392,8 +425,7 @@ definitions:
       DeviceProperties:
         $ref: '#/definitions/DeviceProperties'
       DeviceId:
-        type: string
-        pattern: '[0-9a-f]{32}'
+        $ref: '#/definitions/DeviceId'
       MAC:
         type: string
   LoginResponse:
@@ -447,8 +479,7 @@ definitions:
           - 1
           - 2
       DeviceId:
-        type: string
-        pattern: '[0-9a-f]{32}'
+        $ref: '#/definitions/DeviceId'
       MAC:
         type: string
   OrnResponse:
@@ -468,8 +499,7 @@ definitions:
       - DeviceId
     properties:
       DeviceId:
-        type: string
-        pattern: '[0-9a-f]{32}'
+        $ref: '#/definitions/DeviceId'
       MAC:
         type: string
   GetUserSettingsResponse:
@@ -490,8 +520,7 @@ definitions:
       - Settings
     properties:
       DeviceId:
-        type: string
-        pattern: '[0-9a-f]{32}'
+        $ref: '#/definitions/DeviceId'
       MAC:
         type: string
       Settings:
@@ -506,8 +535,7 @@ definitions:
       Type:
         type: integer
       DeviceId:
-        type: string
-        pattern: '[0-9a-f]{32}'
+        $ref: '#/definitions/DeviceId'
       MAC:
         type: string
   LogoutResponse:
@@ -525,8 +553,7 @@ definitions:
       - DeviceId
     properties:
       DeviceId:
-        type: string
-        pattern: '[0-9a-f]{32}'
+        $ref: '#/definitions/DeviceId'
       MAC:
         type: string
   AccountResponse:
@@ -555,8 +582,7 @@ definitions:
       LatestBalance:
         type: boolean
       DeviceId:
-        type: string
-        pattern: '[0-9a-f]{32}'
+        $ref: '#/definitions/DeviceId'
       MAC:
         type: string
   PaymentMethodDetailsResponse:
@@ -590,8 +616,7 @@ definitions:
         type: integer
         description: 1 means ENG.
       DeviceId:
-        type: string
-        pattern: '[0-9a-f]{32}'
+        $ref: '#/definitions/DeviceId'
       MAC:
         type: string
   BillingAddressResponse:
@@ -616,8 +641,7 @@ definitions:
         type: integer
         description: 1 means ENG.
       DeviceId:
-        type: string
-        pattern: '[0-9a-f]{32}'
+        $ref: '#/definitions/DeviceId'
       MAC:
         type: string
   CurrenciesGetResponse:
@@ -654,8 +678,7 @@ definitions:
         type: integer
         description: 1 means ENG.
       DeviceId:
-        type: string
-        pattern: '[0-9a-f]{32}'
+        $ref: '#/definitions/DeviceId'
       MAC:
         type: string
   TransactionsListResponse:
@@ -691,8 +714,7 @@ definitions:
         type: integer
         description: 1 means ENG.
       DeviceId:
-        type: string
-        pattern: '[0-9a-f]{32}'
+        $ref: '#/definitions/DeviceId'
       MAC:
         type: string
   PreAuthTransactionsResponse:
@@ -723,8 +745,7 @@ definitions:
         type: integer
         description: 1 means ENG.
       DeviceId:
-        type: string
-        pattern: '[0-9a-f]{32}'
+        $ref: '#/definitions/DeviceId'
       MAC:
         type: string
   TransactionDetailsResponse:
@@ -749,8 +770,7 @@ definitions:
       Currency:
         type: string
       DeviceId:
-        type: string
-        pattern: '[0-9a-f]{32}'
+        $ref: '#/definitions/DeviceId'
       MAC:
         type: string
   BalanceResponse:
@@ -809,8 +829,7 @@ definitions:
       IsFirstAppStart:
         type: boolean
       DeviceId:
-        type: string
-        pattern: '[0-9a-f]{32}'
+        $ref: '#/definitions/DeviceId'
       MAC:
         type: string
   AppStartResponse:
@@ -849,8 +868,7 @@ definitions:
       IsFirstAppStart:
         type: boolean
       DeviceId:
-        type: string
-        pattern: '[0-9a-f]{32}'
+        $ref: '#/definitions/DeviceId'
       MAC:
         type: string
   SignDocumentsResponse:
@@ -874,8 +892,7 @@ definitions:
       IsFirstAppStart:
         type: boolean
       DeviceId:
-        type: string
-        pattern: '[0-9a-f]{32}'
+        $ref: '#/definitions/DeviceId'
       MAC:
         type: string
   GetSignDocumentsResponse:
@@ -913,8 +930,7 @@ definitions:
       PartnerId:
         type: integer
       DeviceId:
-        type: string
-        pattern: '[0-9a-f]{32}'
+        $ref: '#/definitions/DeviceId'
       MAC:
         type: string
   ResourcesResponse:
@@ -951,8 +967,7 @@ definitions:
       ResourceName:
         type: string
       DeviceId:
-        type: string
-        pattern: '[0-9a-f]{32}'
+        $ref: '#/definitions/DeviceId'
       MAC:
         type: string
   ResourceGetResponse:
@@ -1112,6 +1127,9 @@ definitions:
         type: string
       PaymentStatusCategory:
         type: integer
+  DeviceId:
+    type: string
+    pattern: '[0-9a-f]{32}'
   Currency:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=Currency
