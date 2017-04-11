@@ -399,20 +399,14 @@ definitions:
       Username:
         type: string
       MobileAppId:
-        type: integer
-        description: 1 means iOS, 2 means Android.
-        enum:
-          - 1
-          - 2
+        $ref: '#/definitions/MobileAppId'
       AppVersion:
-        type: string
-        default: 3.33.1
+        $ref: '#/definitions/AppVersion'
       ExtendedLoginData:
         type: string
         description: (Assumption) Captcha code
       LanguageCode:
-        type: integer
-        description: 1 means ENG.
+        $ref: '#/definitions/LanguageCode'
       UTCTimeZone:
         type: integer
       Currency:
@@ -470,14 +464,9 @@ definitions:
       - DeviceId
     properties:
       LanguageCode:
-        type: integer
-        description: 1 means ENG.
+        $ref: '#/definitions/LanguageCode'
       MobileAppId:
-        type: integer
-        description: 1 means iOS, 2 means Android.
-        enum:
-          - 1
-          - 2
+        $ref: '#/definitions/MobileAppId'
       DeviceId:
         $ref: '#/definitions/DeviceId'
       MAC:
@@ -613,8 +602,7 @@ definitions:
       MobileAccountId:
         type: integer
       LanguageCode:
-        type: integer
-        description: 1 means ENG.
+        $ref: '#/definitions/LanguageCode'
       DeviceId:
         $ref: '#/definitions/DeviceId'
       MAC:
@@ -638,8 +626,7 @@ definitions:
       Currency:
         type: string
       LanguageCode:
-        type: integer
-        description: 1 means ENG.
+        $ref: '#/definitions/LanguageCode'
       DeviceId:
         $ref: '#/definitions/DeviceId'
       MAC:
@@ -675,8 +662,7 @@ definitions:
         type: string
         format: date
       LanguageCode:
-        type: integer
-        description: 1 means ENG.
+        $ref: '#/definitions/LanguageCode'
       DeviceId:
         $ref: '#/definitions/DeviceId'
       MAC:
@@ -711,8 +697,7 @@ definitions:
         type: string
         format: date
       LanguageCode:
-        type: integer
-        description: 1 means ENG.
+        $ref: '#/definitions/LanguageCode'
       DeviceId:
         $ref: '#/definitions/DeviceId'
       MAC:
@@ -742,8 +727,7 @@ definitions:
       TransactionId:
         type: string
       LanguageCode:
-        type: integer
-        description: 1 means ENG.
+        $ref: '#/definitions/LanguageCode'
       DeviceId:
         $ref: '#/definitions/DeviceId'
       MAC:
@@ -808,17 +792,11 @@ definitions:
       - DeviceId
     properties:
       MobileAppId:
-        type: integer
-        description: 1 means iOS, 2 means Android.
-        enum:
-          - 1
-          - 2
+        $ref: '#/definitions/MobileAppId'
       AppVersion:
-        type: string
-        default: 3.33.1
+        $ref: '#/definitions/AppVersion'
       LanguageCode:
-        type: integer
-        description: 1 means ENG.
+        $ref: '#/definitions/LanguageCode'
       MobilePlatformType:
         type: integer
       PartnerId:
@@ -887,8 +865,7 @@ definitions:
       - DeviceId
     properties:
       LanguageCode:
-        type: integer
-        description: 1 means ENG.
+        $ref: '#/definitions/LanguageCode'
       IsFirstAppStart:
         type: boolean
       DeviceId:
@@ -914,17 +891,12 @@ definitions:
       - DeviceId
     properties:
       MobileAppId:
-        type: integer
-        description: 1 means iOS, 2 means Android.
-        enum:
-          - 1
-          - 2
+        $ref: '#/definitions/MobileAppId'
       Timestamp:
         type: string
         format: date
       LanguageCode:
-        type: integer
-        description: 1 means ENG.
+        $ref: '#/definitions/LanguageCode'
       ISOCode:
         type: string
       PartnerId:
@@ -943,7 +915,7 @@ definitions:
       Resources:
         $ref: '#/definitions/Resources'
       LanguageCode:
-        type: integer
+        $ref: '#/definitions/LanguageCode'
       ISOCode:
         type: string
       IsRTL:
@@ -956,14 +928,9 @@ definitions:
       - DeviceId
     properties:
       LanguageCode:
-        type: integer
-        description: 1 means ENG.
+        $ref: '#/definitions/LanguageCode'
       MobileAppId:
-        type: integer
-        description: 1 means iOS, 2 means Android.
-        enum:
-          - 1
-          - 2
+        $ref: '#/definitions/MobileAppId'
       ResourceName:
         type: string
       DeviceId:
@@ -1034,8 +1001,7 @@ definitions:
     type: object
     properties:
       LanguageCode:
-        type: integer
-        description: 1 means ENG.
+        $ref: '#/definitions/LanguageCode'
       DisplayName:
         type: string
       IsRTL:
@@ -1130,6 +1096,18 @@ definitions:
   DeviceId:
     type: string
     pattern: '[0-9a-f]{32}'
+  MobileAppId:
+    type: integer
+    description: 1 means iOS, 2 means Android.
+    enum:
+      - 1
+      - 2
+  AppVersion:
+    type: string
+    default: 3.33.1
+  LanguageCode:
+    type: integer
+    description: 1 means ENG.
   Currency:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=Currency
