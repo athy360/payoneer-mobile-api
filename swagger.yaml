@@ -371,6 +371,8 @@ definitions:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=BaseRequest
     type: object
+    required:
+      - DeviceId
     properties:
       DeviceId:
         $ref: '#/definitions/DeviceId'
@@ -386,566 +388,498 @@ definitions:
   LoginRequest:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=LoginRequest
-    type: object
-    required:
-      - Password
-      - Username
-      - MobileAppId
-      - AppVersion
-      - DeviceId
-    properties:
-      Password:
-        type: string
-      Username:
-        type: string
-      MobileAppId:
-        $ref: '#/definitions/MobileAppId'
-      AppVersion:
-        $ref: '#/definitions/AppVersion'
-      ExtendedLoginData:
-        type: string
-        description: (Assumption) Captcha code
-      LanguageCode:
-        $ref: '#/definitions/LanguageCode'
-      UTCTimeZone:
-        type: integer
-      Currency:
-        type: string
-      Timestamp:
-        type: string
-        format: date
-      MobilePlatformType:
-        type: integer
-      DeviceProperties:
-        $ref: '#/definitions/DeviceProperties'
-      DeviceId:
-        $ref: '#/definitions/DeviceId'
-      MAC:
-        type: string
+    allOf:
+      - $ref: '#/definitions/BaseRequest'
+      - type: object
+        required:
+          - Password
+          - Username
+          - MobileAppId
+          - AppVersion
+        properties:
+          Password:
+            type: string
+          Username:
+            type: string
+          MobileAppId:
+            $ref: '#/definitions/MobileAppId'
+          AppVersion:
+            $ref: '#/definitions/AppVersion'
+          ExtendedLoginData:
+            type: string
+            description: (Assumption) Captcha code
+          LanguageCode:
+            $ref: '#/definitions/LanguageCode'
+          UTCTimeZone:
+            type: integer
+          Currency:
+            type: string
+          Timestamp:
+            type: string
+            format: date
+          MobilePlatformType:
+            type: integer
+          DeviceProperties:
+            $ref: '#/definitions/DeviceProperties'
   LoginResponse:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=LoginResponse
-    type: object
-    properties:
-      FirstName:
-        type: string
-      LastName:
-        type: string
-      RAFLink:
-        type: string
-      RAFLinkMenu:
-        type: string
-      Email:
-        type: string
-      LocalCurrency:
-        type: string
-      DisplayTC:
-        type: boolean
-      Permissions:
-        type: array
-        items:
-          $ref: '#/definitions/AccountPermission'
-      ORNLink:
-        type: string
-      ResponseCode:
-        type: integer
-      Description:
-        type: string
-      RiskChallenge:
-        $ref: '#/definitions/ChallengeResponse'
-      MobileSessionToken:
-        type: string
+    allOf:
+      - $ref: '#/definitions/BaseResponse'
+      - type: object
+        properties:
+          FirstName:
+            type: string
+          LastName:
+            type: string
+          RAFLink:
+            type: string
+          RAFLinkMenu:
+            type: string
+          Email:
+            type: string
+          LocalCurrency:
+            type: string
+          DisplayTC:
+            type: boolean
+          Permissions:
+            type: array
+            items:
+              $ref: '#/definitions/AccountPermission'
+          ORNLink:
+            type: string
+          Description:
+            type: string
+          RiskChallenge:
+            $ref: '#/definitions/ChallengeResponse'
+          MobileSessionToken:
+            type: string
   OrnRequest:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=OrnRequest
-    type: object
-    required:
-      - MobileAppId
-      - DeviceId
-    properties:
-      LanguageCode:
-        $ref: '#/definitions/LanguageCode'
-      MobileAppId:
-        $ref: '#/definitions/MobileAppId'
-      DeviceId:
-        $ref: '#/definitions/DeviceId'
-      MAC:
-        type: string
+    allOf:
+      - $ref: '#/definitions/BaseRequest'
+      - type: object
+        required:
+          - MobileAppId
+        properties:
+          LanguageCode:
+            $ref: '#/definitions/LanguageCode'
+          MobileAppId:
+            $ref: '#/definitions/MobileAppId'
   OrnResponse:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=OrnResponse
-    type: object
-    properties:
-      ResponseCode:
-        type: integer
-      ORNLink:
-        type: string
+    allOf:
+      - $ref: '#/definitions/BaseResponse'
+      - type: object
+        properties:
+          ORNLink:
+            type: string
   GetUserSettingsRequest:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=GetUserSettingsRequest
-    type: object
-    required:
-      - DeviceId
-    properties:
-      DeviceId:
-        $ref: '#/definitions/DeviceId'
-      MAC:
-        type: string
+    allOf:
+      - $ref: '#/definitions/BaseRequest'
   GetUserSettingsResponse:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=GetUserSettingsResponse
-    type: object
-    properties:
-      ResponseCode:
-        type: integer
-      Settings:
-        $ref: '#/definitions/UserSettings'
+    allOf:
+      - $ref: '#/definitions/BaseResponse'
+      - type: object
+        properties:
+          Settings:
+            $ref: '#/definitions/UserSettings'
   SaveUserSettingsRequest:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=SaveUserSettingsRequest
-    type: object
-    required:
-      - DeviceId
-      - Settings
-    properties:
-      DeviceId:
-        $ref: '#/definitions/DeviceId'
-      MAC:
-        type: string
-      Settings:
-        $ref: '#/definitions/UserSettings'
+    allOf:
+      - $ref: '#/definitions/BaseRequest'
+      - type: object
+        required:
+          - Settings
+        properties:
+          Settings:
+            $ref: '#/definitions/UserSettings'
   LogoutRequest:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=LogoutRequest
-    type: object
-    required:
-      - DeviceId
-    properties:
-      Type:
-        type: integer
-      DeviceId:
-        $ref: '#/definitions/DeviceId'
-      MAC:
-        type: string
+    allOf:
+      - $ref: '#/definitions/BaseRequest'
+      - type: object
+        properties:
+          Type:
+            type: integer
   LogoutResponse:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=LogoutResponse
-    type: object
-    properties:
-      ResponseCode:
-        type: integer
+    allOf:
+      - $ref: '#/definitions/BaseResponse'
   AccountRequest:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=AccountRequest
-    type: object
-    required:
-      - DeviceId
-    properties:
-      DeviceId:
-        $ref: '#/definitions/DeviceId'
-      MAC:
-        type: string
+    allOf:
+      - $ref: '#/definitions/BaseRequest'
   AccountResponse:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=AccountResponse
-    type: object
-    properties:
-      ResponseCode:
-        type: integer
-      PaymentMethods:
-        type: array
-        items:
-          $ref: '#/definitions/PaymentMethodResponse'
+    allOf:
+      - $ref: '#/definitions/BaseResponse'
+      - type: object
+        properties:
+          PaymentMethods:
+            type: array
+            items:
+              $ref: '#/definitions/PaymentMethodResponse'
   PaymentMethodDetailsRequest:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=PaymentMethodDetailsRequest
-    type: object
-    required:
-      - MobileAccountId
-      - DeviceId
-    properties:
-      MobileAccountId:
-        type: integer
-      Currency:
-        type: string
-      LatestBalance:
-        type: boolean
-      DeviceId:
-        $ref: '#/definitions/DeviceId'
-      MAC:
-        type: string
+    allOf:
+      - $ref: '#/definitions/BaseRequest'
+      - type: object
+        required:
+          - MobileAccountId
+        properties:
+          MobileAccountId:
+            type: integer
+          Currency:
+            type: string
+          LatestBalance:
+            type: boolean
   PaymentMethodDetailsResponse:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=PaymentMethodDetailsResponse
-    type: object
-    properties:
-      ResponseCode:
-        type: integer
-      Balance:
-        $ref: '#/definitions/PaymentMethodBalance'
-      RecentPayments:
-        type: array
-        items:
-          $ref: '#/definitions/PaymentHeaderResponse'
-      LastTransactions:
-        type: array
-        items:
-          $ref: '#/definitions/TransactionHeaderResponse'
+    allOf:
+      - $ref: '#/definitions/BaseResponse'
+      - type: object
+        properties:
+          Balance:
+            $ref: '#/definitions/PaymentMethodBalance'
+          RecentPayments:
+            type: array
+            items:
+              $ref: '#/definitions/PaymentHeaderResponse'
+          LastTransactions:
+            type: array
+            items:
+              $ref: '#/definitions/TransactionHeaderResponse'
   BillingAddressRequest:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=BillingAddressRequest
-    type: object
-    required:
-      - MobileAccountId
-      - DeviceId
-    properties:
-      MobileAccountId:
-        type: integer
-      LanguageCode:
-        $ref: '#/definitions/LanguageCode'
-      DeviceId:
-        $ref: '#/definitions/DeviceId'
-      MAC:
-        type: string
+    allOf:
+      - $ref: '#/definitions/BaseRequest'
+      - type: object
+        required:
+          - MobileAccountId
+        properties:
+          MobileAccountId:
+            type: integer
+          LanguageCode:
+            $ref: '#/definitions/LanguageCode'
   BillingAddressResponse:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=BillingAddressResponse
-    type: object
-    properties:
-      ResponseCode:
-        type: integer
-      BillingAddress:
-        $ref: '#/definitions/BillingAddress'
+    allOf:
+      - $ref: '#/definitions/BaseResponse'
+      - type: object
+        properties:
+          BillingAddress:
+            $ref: '#/definitions/BillingAddress'
   CurrenciesGetRequest:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=CurrenciesGetRequest
-    type: object
-    required:
-      - DeviceId
-    properties:
-      Currency:
-        type: string
-      LanguageCode:
-        $ref: '#/definitions/LanguageCode'
-      DeviceId:
-        $ref: '#/definitions/DeviceId'
-      MAC:
-        type: string
+    allOf:
+      - $ref: '#/definitions/BaseRequest'
+      - type: object
+        properties:
+          Currency:
+            type: string
+          LanguageCode:
+            $ref: '#/definitions/LanguageCode'
   CurrenciesGetResponse:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=CurrenciesGetResponse
-    type: object
-    properties:
-      ResponseCode:
-        type: integer
-      Currencies:
-        type: array
-        items:
-          $ref: '#/definitions/Currency'
+    allOf:
+      - $ref: '#/definitions/BaseResponse'
+      - type: object
+        properties:
+          Currencies:
+            type: array
+            items:
+              $ref: '#/definitions/Currency'
   #TODO: Stuff
   TransactionsListRequest:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=TransactionsListRequest
-    type: object
-    required:
-      - MobileAccountId
-      - FromDate
-      - ToDate
-      - DeviceId
-    properties:
-      MobileAccountId:
-        type: integer
-      FromDate:
-        type: string
-        format: date
-      ToDate:
-        type: string
-        format: date
-      LanguageCode:
-        $ref: '#/definitions/LanguageCode'
-      DeviceId:
-        $ref: '#/definitions/DeviceId'
-      MAC:
-        type: string
+    allOf:
+      - $ref: '#/definitions/BaseRequest'
+      - type: object
+        required:
+          - MobileAccountId
+          - FromDate
+          - ToDate
+        properties:
+          MobileAccountId:
+            type: integer
+          FromDate:
+            type: string
+            format: date
+          ToDate:
+            type: string
+            format: date
+          LanguageCode:
+            $ref: '#/definitions/LanguageCode'
   TransactionsListResponse:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=TransactionsListResponse
-    type: object
-    properties:
-      ResponseCode:
-        type: integer
-      TransactionHeadersList:
-        type: array
-        items:
-          $ref: '#/definitions/TransactionHeaderResponse'
+    allOf:
+      - $ref: '#/definitions/BaseResponse'
+      - type: object
+        properties:
+          TransactionHeadersList:
+            type: array
+            items:
+              $ref: '#/definitions/TransactionHeaderResponse'
   PreAuthTransactionsRequest:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=PreAuthTransactionsRequest
-    type: object
-    required:
-      - MobileAccountId
-      - FromDate
-      - ToDate
-      - DeviceId
-    properties:
-      MobileAccountId:
-        type: integer
-      FromDate:
-        type: string
-        format: date
-      ToDate:
-        type: string
-        format: date
-      LanguageCode:
-        $ref: '#/definitions/LanguageCode'
-      DeviceId:
-        $ref: '#/definitions/DeviceId'
-      MAC:
-        type: string
+    allOf:
+      - $ref: '#/definitions/BaseRequest'
+      - type: object
+        required:
+          - MobileAccountId
+          - FromDate
+          - ToDate
+        properties:
+          MobileAccountId:
+            type: integer
+          FromDate:
+            type: string
+            format: date
+          ToDate:
+            type: string
+            format: date
+          LanguageCode:
+            $ref: '#/definitions/LanguageCode'
   PreAuthTransactionsResponse:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=PreAuthTransactionsResponse
-    type: object
-    properties:
-      ResponseCode:
-        type: integer
-      PreAuthTransactionHeadersList:
-        type: array
-        items:
-          $ref: '#/definitions/TransactionHeaderResponse'
+    allOf:
+      - $ref: '#/definitions/BaseResponse'
+      - type: object
+        properties:
+          PreAuthTransactionHeadersList:
+            type: array
+            items:
+              $ref: '#/definitions/TransactionHeaderResponse'
   TransactionDetailsRequest:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=TransactionDetailsRequest
-    type: object
-    required:
-      - MobileAccountId
-      - TransactionId
-      - DeviceId
-    properties:
-      MobileAccountId:
-        type: integer
-      TransactionId:
-        type: string
-      LanguageCode:
-        $ref: '#/definitions/LanguageCode'
-      DeviceId:
-        $ref: '#/definitions/DeviceId'
-      MAC:
-        type: string
+    allOf:
+      - $ref: '#/definitions/BaseRequest'
+      - type: object
+        required:
+          - MobileAccountId
+          - TransactionId
+        properties:
+          MobileAccountId:
+            type: integer
+          TransactionId:
+            type: string
+          LanguageCode:
+            $ref: '#/definitions/LanguageCode'
   TransactionDetailsResponse:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=TransactionDetailsResponse
-    type: object
-    properties:
-      ResponseCode:
-        type: integer
-      Details:
-        $ref: '#/definitions/TransactionDetails'
+    allOf:
+      - $ref: '#/definitions/BaseResponse'
+      - type: object
+        properties:
+          Details:
+            $ref: '#/definitions/TransactionDetails'
   BalanceRequest:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=BalanceRequest
-    type: object
-    required:
-      - MobileAccountId
-      - DeviceId
-    properties:
-      MobileAccountId:
-        type: integer
-      Currency:
-        type: string
-      DeviceId:
-        $ref: '#/definitions/DeviceId'
-      MAC:
-        type: string
+    allOf:
+      - $ref: '#/definitions/BaseRequest'
+      - type: object
+        required:
+          - MobileAccountId
+        properties:
+          MobileAccountId:
+            type: integer
+          Currency:
+            type: string
   BalanceResponse:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=BalanceResponse
-    type: object
-    properties:
-      ResponseDescription:
-        type: string
-      ResponseCode:
-        type: integer
-      AccountBalance:
-        type: string
-      AccountBalanceInCardCurrency:
-        type: string
-      CardBalance:
-        type: string
-      CardBalanceInCardCurrency:
-        type: string
-      CardCurrency:
-        type: string
-      LastProcessed:
-        type: string
-      RequestedCurrency:
-        type: string
+    allOf:
+      - $ref: '#/definitions/BaseResponse'
+      - type: object
+        properties:
+          ResponseDescription:
+            type: string
+          AccountBalance:
+            type: string
+          AccountBalanceInCardCurrency:
+            type: string
+          CardBalance:
+            type: string
+          CardBalanceInCardCurrency:
+            type: string
+          CardCurrency:
+            type: string
+          LastProcessed:
+            type: string
+          RequestedCurrency:
+            type: string
   #TODO: Other stuff
   AppStartRequest:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=AppStartRequest
-    type: object
-    required:
-      - AppVersion
-      - MobileAppId
-      - IsFirstAppStart
-      - DeviceId
-    properties:
-      MobileAppId:
-        $ref: '#/definitions/MobileAppId'
-      AppVersion:
-        $ref: '#/definitions/AppVersion'
-      LanguageCode:
-        $ref: '#/definitions/LanguageCode'
-      MobilePlatformType:
-        type: integer
-      PartnerId:
-        type: integer
-      Timestamp:
-        type: string
-        format: date
-      IsFirstAppStart:
-        type: boolean
-      DeviceId:
-        $ref: '#/definitions/DeviceId'
-      MAC:
-        type: string
+    allOf:
+      - $ref: '#/definitions/BaseRequest'
+      - type: object
+        required:
+          - AppVersion
+          - MobileAppId
+          - IsFirstAppStart
+        properties:
+          MobileAppId:
+            $ref: '#/definitions/MobileAppId'
+          AppVersion:
+            $ref: '#/definitions/AppVersion'
+          LanguageCode:
+            $ref: '#/definitions/LanguageCode'
+          MobilePlatformType:
+            type: integer
+          PartnerId:
+            type: integer
+          Timestamp:
+            type: string
+            format: date
+          IsFirstAppStart:
+            type: boolean
   AppStartResponse:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=AppStartResponse
-    type: object
-    properties:
-      ResponseCode:
-        type: integer
-      Description:
-        type: string
-      Resources:
-        $ref: '#/definitions/Resources'
-      PushAPIKeys:
-        $ref: '#/definitions/PushCredentials'
-      DisplayTC:
-        type: boolean
-      Languages:
-        type: array
-        items:
-          $ref: '#/definitions/SupportedLanguageResponse'
-      Currencies:
-        type: array
-        items:
-          type: string
-      DeviceToken:
-        type: string
+    allOf:
+      - $ref: '#/definitions/BaseResponse'
+      - type: object
+        properties:
+          Description:
+            type: string
+          Resources:
+            $ref: '#/definitions/Resources'
+          PushAPIKeys:
+            $ref: '#/definitions/PushCredentials'
+          DisplayTC:
+            type: boolean
+          Languages:
+            type: array
+            items:
+              $ref: '#/definitions/SupportedLanguageResponse'
+          Currencies:
+            type: array
+            items:
+              type: string
+          DeviceToken:
+            type: string
   SignDocumentsRequest:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=SignDocumentsRequest
-    type: object
-    required:
-      - IsFirstAppStart
-      - DeviceId
-    properties:
-      IsFirstAppStart:
-        type: boolean
-      DeviceId:
-        $ref: '#/definitions/DeviceId'
-      MAC:
-        type: string
+    allOf:
+      - $ref: '#/definitions/BaseRequest'
+      - type: object
+        required:
+          - IsFirstAppStart
+        properties:
+          IsFirstAppStart:
+            type: boolean
   SignDocumentsResponse:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=SignDocumentsResponse
-    type: object
-    properties:
-      ResponseCode:
-        type: integer
+    allOf:
+      - $ref: '#/definitions/BaseResponse'
   GetSignDocumentsRequest:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=GetSignDocumentsRequest
-    type: object
-    required:
-      - IsFirstAppStart
-      - DeviceId
-    properties:
-      LanguageCode:
-        $ref: '#/definitions/LanguageCode'
-      IsFirstAppStart:
-        type: boolean
-      DeviceId:
-        $ref: '#/definitions/DeviceId'
-      MAC:
-        type: string
+    allOf:
+      - $ref: '#/definitions/BaseRequest'
+      - type: object
+        required:
+          - IsFirstAppStart
+        properties:
+          LanguageCode:
+            $ref: '#/definitions/LanguageCode'
+          IsFirstAppStart:
+            type: boolean
   GetSignDocumentsResponse:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=GetSignDocumentsResponse
-    type: object
-    properties:
-      ResponseCode:
-        type: integer
-      Documents:
-        type: array
-        items:
-          $ref: '#/definitions/SigningDocument'
+    allOf:
+      - $ref: '#/definitions/BaseResponse'
+      - type: object
+        properties:
+          Documents:
+            type: array
+            items:
+              $ref: '#/definitions/SigningDocument'
   ResourcesRequest:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=ResourcesRequest
-    type: object
-    required:
-      - DeviceId
-    properties:
-      MobileAppId:
-        $ref: '#/definitions/MobileAppId'
-      Timestamp:
-        type: string
-        format: date
-      LanguageCode:
-        $ref: '#/definitions/LanguageCode'
-      ISOCode:
-        type: string
-      PartnerId:
-        type: integer
-      DeviceId:
-        $ref: '#/definitions/DeviceId'
-      MAC:
-        type: string
+    allOf:
+      - $ref: '#/definitions/BaseRequest'
+      - type: object
+        properties:
+          MobileAppId:
+            $ref: '#/definitions/MobileAppId'
+          Timestamp:
+            type: string
+            format: date
+          LanguageCode:
+            $ref: '#/definitions/LanguageCode'
+          ISOCode:
+            type: string
+          PartnerId:
+            type: integer
   ResourcesResponse:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=ResourcesResponse
-    type: object
-    properties:
-      ResponseCode:
-        type: integer
-      Resources:
-        $ref: '#/definitions/Resources'
-      LanguageCode:
-        $ref: '#/definitions/LanguageCode'
-      ISOCode:
-        type: string
-      IsRTL:
-        type: boolean
+    allOf:
+      - $ref: '#/definitions/BaseResponse'
+      - type: object
+        properties:
+          Resources:
+            $ref: '#/definitions/Resources'
+          LanguageCode:
+            $ref: '#/definitions/LanguageCode'
+          ISOCode:
+            type: string
+          IsRTL:
+            type: boolean
   ResourceGetRequest:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=ResourceGetRequest
-    type: object
-    required:
-      - DeviceId
-    properties:
-      LanguageCode:
-        $ref: '#/definitions/LanguageCode'
-      MobileAppId:
-        $ref: '#/definitions/MobileAppId'
-      ResourceName:
-        type: string
-      DeviceId:
-        $ref: '#/definitions/DeviceId'
-      MAC:
-        type: string
+    allOf:
+      - $ref: '#/definitions/BaseRequest'
+      - type: object
+        properties:
+          LanguageCode:
+            $ref: '#/definitions/LanguageCode'
+          MobileAppId:
+            $ref: '#/definitions/MobileAppId'
+          ResourceName:
+            type: string
   ResourceGetResponse:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=ResourceGetResponse
-    type: object
-    properties:
-      ResponseCode:
-        type: integer
-      ResourceValue:
-        type: string
+    allOf:
+      - $ref: '#/definitions/BaseResponse'
+      - type: object
+        properties:
+          ResourceValue:
+            type: string
   #TODO: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=
   #TODO: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=
   #TODO: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=
