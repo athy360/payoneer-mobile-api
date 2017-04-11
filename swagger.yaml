@@ -193,10 +193,78 @@ paths:
             $ref: '#/definitions/BaseResponse'
       externalDocs:
         url: https://mobileapi.payoneer.com/Help/Api/POST-Authentication-ChallengeRefuseSms
-  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Authentication-ChallengeCancel
-  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Authentication-ChallengeSms
-  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Authentication-ChallengeGet
-  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Authentication-ChallengeAuthenticate
+  '/Authentication/ChallengeCancel':
+    post:
+      tags:
+        - Authentication
+      summary: ChallengeCancel
+      parameters:
+        - name: request
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/BaseRequest'
+      responses:
+        200:
+          description: ChallengeCancel response
+          schema:
+            $ref: '#/definitions/BaseResponse'
+      externalDocs:
+        url: https://mobileapi.payoneer.com/Help/Api/POST-Authentication-ChallengeCancel
+  '/Authentication/ChallengeSms':
+    post:
+      tags:
+        - Authentication
+      summary: ChallengeSms
+      parameters:
+        - name: request
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/SmsChallengeRequest'
+      responses:
+        200:
+          description: ChallengeSms response
+          schema:
+            $ref: '#/definitions/SmsChallengeResponse'
+      externalDocs:
+        url: https://mobileapi.payoneer.com/Help/Api/POST-Authentication-ChallengeSms
+  '/Authentication/ChallengeGet':
+    post:
+      tags:
+        - Authentication
+      summary: ChallengeGet
+      parameters:
+        - name: request
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/GetChallengeRequest'
+      responses:
+        200:
+          description: ChallengeGet response
+          schema:
+            $ref: '#/definitions/GetChallengeResponse'
+      externalDocs:
+        url: https://mobileapi.payoneer.com/Help/Api/POST-Authentication-ChallengeGet
+  '/Authentication/ChallengeAuthenticate':
+    post:
+      tags:
+        - Authentication
+      summary: ChallengeAuthenticate
+      parameters:
+        - name: request
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/ChallengeAuthenticateRequest'
+      responses:
+        200:
+          description: ChallengeAuthenticate response
+          schema:
+            $ref: '#/definitions/ChallengeAuthenticateResponse'
+      externalDocs:
+        url: https://mobileapi.payoneer.com/Help/Api/POST-Authentication-ChallengeAuthenticate
   '/Transaction/Transactions':
     post:
       tags:
@@ -607,7 +675,60 @@ definitions:
             type: array
             items:
               $ref: '#/definitions/Currency'
-  #TODO: Stuff
+  SmsChallengeRequest:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=SmsChallengeRequest
+    allOf:
+      - $ref: '#/definitions/BaseRequest'
+      - type: object
+        properties:
+          PhoneNumberId:
+            type: integer
+  SmsChallengeResponse:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=SmsChallengeResponse
+    allOf:
+      - $ref: '#/definitions/BaseResponse'
+  GetChallengeRequest:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=GetChallengeRequest
+    allOf:
+      - $ref: '#/definitions/BaseRequest'
+  GetChallengeResponse:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=GetChallengeResponse
+    allOf:
+      - $ref: '#/definitions/BaseResponse'
+      - type: object
+        properties:
+          RiskChallenge:
+            $ref: '#/definitions/RiskChallenge'
+  ChallengeAuthenticateRequest:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=ChallengeAuthenticateRequest
+    allOf:
+      - $ref: '#/definitions/BaseRequest'
+      - type: object
+        properties:
+          SmsCode:
+            type: string
+          SecurityAnswers:
+            $ref: '#/definitions/SecurityAnswers'
+  ChallengeAuthenticateResponse:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=ChallengeAuthenticateResponse
+    allOf:
+      - $ref: '#/definitions/BaseResponse'
+      - type: object
+        properties:
+          Description:
+            type: string
+          IsLastAttempt:
+            type: boolean
+          EventId:
+            type: integer
+          ActionResponse:
+            $ref: '#/definitions/BaseResponse'
   TransactionsListRequest:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=TransactionsListRequest
@@ -889,6 +1010,17 @@ definitions:
   #TODO: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=
   #TODO: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=
   #TODO: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=
+  SecurityAnswers:
+    type: object
+    additionalProperties:
+      type: string
+  RiskChallenge:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=RiskChallenge
+    type: object
+    properties:
+      ChallengeMethod:
+        type: integer
   SigningDocument:
     externalDocs:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=Resources
