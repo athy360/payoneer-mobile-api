@@ -2,7 +2,7 @@ swagger: '2.0'
 info:
   title: Payoneer Mobile API
   description: Swagger specification for https://mobileapi.payoneer.com
-  version: '0.9.2'
+  version: '0.9.3'
 schemes:
   - https
 host: mobileapi.payoneer.com
@@ -1083,6 +1083,32 @@ definitions:
       url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=TransactionDetails
     type: object
     properties:
+      IsVirtual:
+        type: boolean
+      AmountVirtual1:
+        $ref: '#/definitions/LabelValuePair'
+      AmountVirtual2:
+        $ref: '#/definitions/LabelValuePair'
+      MerchantName:
+        $ref: '#/definitions/LabelValuePair'
+      MerchantLocation:
+        $ref: '#/definitions/LabelValuePair'
+      Country:
+        $ref: '#/definitions/LabelValuePair'
+      TransactionType:
+        $ref: '#/definitions/LabelValuePair'
+      TransactionAmountInCardsCurrency:
+        $ref: '#/definitions/LabelValuePair'
+      ConversionRate:
+        $ref: '#/definitions/LabelValuePair'
+      WithdrawalFee:
+        $ref: '#/definitions/LabelValuePair'
+      ConversionFeeInCardsCurrency:
+        $ref: '#/definitions/LabelValuePair'
+      ConversionFee:
+        $ref: '#/definitions/LabelValuePair'
+      ConversionFeePercent:
+        $ref: '#/definitions/LabelValuePair'
       TransactionNumber:
         $ref: '#/definitions/LabelValuePair'
       TransactionDate:
