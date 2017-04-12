@@ -20,4 +20,5 @@ TAG=$(git describe --tags)
 VERSION="${TAG/v/}"
 
 echo "{\"packageName\":\"payoneer_mobile_api\",\"packageVersion\":\"$VERSION\"}" > $CONFIG
-$CODEGEN generate -i swagger.yaml -l python -o python -c $CONFIG
+$CODEGEN generate -i swagger.yaml -l python -o python -c $CONFIG \
+    --git-user-id "brainbeanapps" --git-repo-id "payoneer-mobile-api-python"
