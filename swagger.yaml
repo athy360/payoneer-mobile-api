@@ -2,7 +2,7 @@ swagger: '2.0'
 info:
   title: Payoneer Mobile API
   description: Swagger specification for https://mobileapi.payoneer.com
-  version: '0.9.3'
+  version: '0.9.4'
 schemes:
   - https
 host: mobileapi.payoneer.com
@@ -337,8 +337,43 @@ paths:
             $ref: '#/definitions/BalanceResponse'
       externalDocs:
         url: https://mobileapi.payoneer.com/Help/Api/POST-Balance-Balance
-  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Payment-Payments
-  #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Payment-PaymentDetails
+  '/Payment/Payments':
+    post:
+      tags:
+        - Payment
+      summary: Payments
+      parameters:
+        - name: request
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/PaymentsHistoryRequest'
+      responses:
+        200:
+          description: Payments response
+          schema:
+            $ref: '#/definitions/PaymentsHistoryResponse'
+      externalDocs:
+        url: https://mobileapi.payoneer.com/Help/Api/POST-Payment-Payments
+  '/Payment/PaymentDetails':
+    post:
+      tags:
+        - Payment
+      summary: Payment Details
+      parameters:
+        - name: request
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/PaymentDetailsRequest'
+      responses:
+        200:
+          description: Payment Details response
+          schema:
+            $ref: '#/definitions/PaymentDetailsResponse'
+      externalDocs:
+        url: https://mobileapi.payoneer.com/Help/Api/POST-Payment-PaymentDetails
+  #TODO:
   #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Notification-RegisterPushToken
   #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Notification-OpenPushNotification
   #TODO: https://mobileapi.payoneer.com/Help/Api/POST-Withdrawal-Init
@@ -858,6 +893,63 @@ definitions:
             type: string
           RequestedCurrency:
             type: string
+  PaymentsHistoryRequest:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=PaymentsHistoryRequest
+    allOf:
+      - $ref: '#/definitions/BaseRequest'
+      - type: object
+        required:
+          - MobileAccountId
+          - FromDate
+          - ToDate
+        properties:
+          MobileAccountId:
+            type: integer
+          FromDate:
+            type: string
+            format: date
+          ToDate:
+            type: string
+            format: date
+          LanguageCode:
+            $ref: '#/definitions/LanguageCode'
+  PaymentsHistoryResponse:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=PaymentsHistoryResponse
+    allOf:
+      - $ref: '#/definitions/BaseResponse'
+      - type: object
+        properties:
+          TransactionHeadersList:
+            type: array
+            items:
+              $ref: '#/definitions/PaymentHeaderResponse'
+  PaymentDetailsRequest:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=PaymentDetailsRequest
+    allOf:
+      - $ref: '#/definitions/BaseRequest'
+      - type: object
+        required:
+          - MobileAccountId
+          - PaymentId
+        properties:
+          MobileAccountId:
+            type: integer
+          PaymentId:
+            type: string
+          LanguageCode:
+            $ref: '#/definitions/LanguageCode'
+  PaymentDetailsResponse:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=PaymentDetailsResponse
+    allOf:
+      - $ref: '#/definitions/BaseResponse'
+      - type: object
+        properties:
+          Details:
+            $ref: '#/definitions/PaymentDetails'
   #TODO: Other stuff
   AppStartRequest:
     externalDocs:
@@ -1116,6 +1208,27 @@ definitions:
       AmountForeignCurrency:
         $ref: '#/definitions/LabelValuePair'
       TransactionAmount:
+        $ref: '#/definitions/LabelValuePair'
+      ExtraDetails:
+        type: array
+        items:
+          $ref: '#/definitions/LabelValuePair'
+  PaymentDetails:
+    externalDocs:
+      url: https://mobileapi.payoneer.com/Help/ResourceModel?modelName=PaymentDetails
+    type: object
+    properties:
+      PaymentId:
+        $ref: '#/definitions/LabelValuePair'
+      PaymentDate:
+        $ref: '#/definitions/LabelValuePair'
+      PaymentStatus:
+        $ref: '#/definitions/LabelValuePair'
+      PayeeId:
+        $ref: '#/definitions/LabelValuePair'
+      LoaderDetails:
+        $ref: '#/definitions/LabelValuePair'
+      PaymentAmount:
         $ref: '#/definitions/LabelValuePair'
       ExtraDetails:
         type: array

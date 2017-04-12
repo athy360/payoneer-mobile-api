@@ -16,8 +16,7 @@ fi
 
 CODEGEN="java -jar bin/swagger-codegen-cli.jar"
 CONFIG=".codegen.json"
-TAG=$(git describe --tags)
-VERSION="${TAG/v/}"
+VERSION="0.9.4"
 
 echo "{\"packageName\":\"payoneer_mobile_api\",\"packageVersion\":\"$VERSION\"}" > $CONFIG
 $CODEGEN generate -i swagger.yaml -l python -o python -c $CONFIG \
